@@ -1,16 +1,30 @@
-console.log("Initializing...");
+const grid = document.querySelector('#grids');
+const resetBtn = document.querySelector('#reset');
+resetBtn.addEventListener('click', function(){
+    reset();
+})
+generateGrid(grid, 16);
+registerEvents();
 
-let div = document.querySelector('#grids');
-
-generateGrid(div, 16);
-
-function generateGrid(div, dimension) {
+function generateGrid(grid, dimension) {
     for(let i = 0; i < dimension**2; i++) {
         let box = document.createElement('div');
-        box.id = 'box';
+        box.classList.add('box');
 
-        div.appendChild(box);
+        grid.appendChild(box);
     }
+}
 
-    console.log(dimension**2)
+function registerEvents() {
+    grid.addEventListener('mouseover', function(e) {
+        if(e.target.matches('.box')){
+            e.target.classList.add('active')
+        }
+    });
+}
+
+function reset() {
+    document.querySelectorAll('.active').forEach(box => {
+        box.classList.remove('active')
+    })
 }
